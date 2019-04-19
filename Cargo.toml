@@ -1,0 +1,8 @@
+[package]
+name = "malware"
+version = "0.1.0"
+authors = ["reverser"]
+edition = "2018"
+
+[dependencies]
+libc="*"
