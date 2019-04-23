@@ -5,6 +5,7 @@ authors = ["reverser"]
 edition = "2018"
 
 [dependencies]
+enigo="*"
 libc="*"
 
 [profile.dev]
